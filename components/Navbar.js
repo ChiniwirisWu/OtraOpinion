@@ -49,6 +49,6 @@ const styles = StyleSheet.create({
   menu: {
     position: 'absolute',
     right: 5,
-    cursor: 'pointer'
+    cursor: 'pointer',
   }
 })
