@@ -1,6 +1,6 @@
 import Page from './Page'
-import { Text, StyleSheet, View, FlatList, Image, TouchableHighlight, Platform } from 'react-native'
-import { useState } from 'react'
+import { Text, StyleSheet, View, FlatList, Image, TouchableHighlight, Platform, Animated } from 'react-native'
+import { useState, useRef, useEffect } from 'react'
 
 const Information = ({ navigation })=>{
   const [cats] = useState([
@@ -14,8 +14,17 @@ const Information = ({ navigation })=>{
     { img: require('../assets/cat8.jpeg'), opinion: 'Art, deepth, life and death.' },
   ]) 
   let columns = (Platform.OS == 'web') ? 4 : 2
+  const opacityAnim = useRef(new Animated.Value(0)).current 
+  useEffect(()=>{
+    Animated.timing(opacityAnim, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true
+    }).start()
+  }, [opacityAnim])
+
   return (
-    <View style={ styles.container }>
+    <Animated.View style={[ styles.container, { opacity: opacityAnim, transform: [{translateX: opacityAnim.interpolate({inputRange:[0,1], outputRange:[0,100]})}] } ]}>
       <FlatList
         data={ cats }
         numColumns={ columns }
@@ -30,7 +39,7 @@ const Information = ({ navigation })=>{
         )} 
         keyExtractor={ item => item.id }
       />
-    </View>
+    </Animated.View>
   )
 }
 
@@ -41,6 +50,8 @@ export default function Home({ navigation }){
 const styles = StyleSheet.create({
   container: {
     padding: 20,
+    position: 'relative',
+    left: -100
   }, 
   image: {
     width: 100,

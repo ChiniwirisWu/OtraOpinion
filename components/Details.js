@@ -3,21 +3,19 @@ import { View, Image, Text, StyleSheet, Animated } from "react-native";
 import { useRef, useEffect } from "react";
 
 const Content = ({ img, opinion })=>{
-  let anim = useRef(new Animated.Value(0)).current
-  
+  const anim = useRef(new Animated.Value(0)).current 
   useEffect(()=>{
-    Animated.timing(anim,{
+    Animated.timing(anim, {
       toValue: 1,
-      duration: 2000,
+      duration: 500,
       useNativeDriver: true
     }).start()
   }, [anim])
-
   return (
-    <View style={ styles.container }>
-      <Image source={ img } style={{ width: 200, height: 200, opacity: anim }} />
+    <Animated.View style={[ styles.container, { opacity: anim, transform: [{translateY: anim.interpolate({inputRange:[0,1], outputRange:[0, -100]})}] } ]}>
+      <Image source={ img } style={{ width: 200, height: 200 } } />
       <Text>{ opinion }</Text>
-    </View>
+    </Animated.View>
   )
 }
 
@@ -28,6 +26,8 @@ export default function Details({route, navigation}){
 
 const styles = StyleSheet.create({
   container: {
+    position: 'relative',
+    top: 100,
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: 20,
