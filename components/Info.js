@@ -12,8 +12,8 @@ const Information = ()=>{
   )
 }
 
-export default function Info(){
-  return <Page children={ <Information /> } />
+export default function Info({ navigation }){
+  return <Page children={ <Information /> } navigation={ navigation } />
 }
 
 const styles = StyleSheet.create({

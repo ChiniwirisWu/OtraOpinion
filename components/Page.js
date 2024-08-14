@@ -5,7 +5,7 @@ import { Entypo } from "@expo/vector-icons";
 import Link from "./Link";
 
 export default function Page({ navigation, children }){
-  const [showModal, setShowModal] = useState(true)
+  const [showModal, setShowModal] = useState(false)
 
   return (
     <View style={ styles.container }>
@@ -21,8 +21,8 @@ export default function Page({ navigation, children }){
             />
           </Pressable>
           <View style={ styles.linksContainer }>
-            <Link title="Home" onPress={()=> navigation.navigate('home')} />  
-            <Link title="Info" onPress={()=> navigation.navigate('info')} />  
+            <Link title="home"  onPress={ ()=> navigation.navigate('home') }/>
+            <Link title="info"  onPress={ ()=> navigation.navigate('info') }/>
           </View>
         </View>
       </Modal>
